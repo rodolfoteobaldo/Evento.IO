@@ -5,8 +5,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="UoW\" />
-    <Folder Include="Repository\" />
+    <Compile Remove="Migrations\20181031221734_initial.cs" />
+    <Compile Remove="Migrations\20181031233053_CamposTamanhoCorreto.cs" />
   </ItemGroup>
 
   <ItemGroup>
