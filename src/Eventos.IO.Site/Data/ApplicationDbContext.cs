@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Eventos.IO.Application.ViewModels;
 
 namespace Eventos.IO.Site.Data
 {
@@ -12,5 +13,6 @@ namespace Eventos.IO.Site.Data
         : base(options)
     {
     }
+    
   }
 }

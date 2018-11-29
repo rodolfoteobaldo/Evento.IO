@@ -12,6 +12,8 @@ using Microsoft.EntityFrameworkCore;
 using Eventos.IO.Site.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Eventos.IO.Application.Interfaces;
+using Eventos.IO.Application.Services;
 
 namespace Eventos.IO.Site
 {
@@ -42,6 +44,8 @@ namespace Eventos.IO.Site
 
 
       services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+      services.AddScoped<IEventoAppService, EventoAppService>();
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
