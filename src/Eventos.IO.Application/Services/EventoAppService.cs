@@ -4,6 +4,7 @@ using Eventos.IO.Application.ViewModels;
 using Eventos.IO.Domain.Core.Bus;
 using Eventos.IO.Domain.Eventos.Commands;
 using Eventos.IO.Domain.Eventos.Repository;
+using Eventos.IO.Domain.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -15,12 +16,17 @@ namespace Eventos.IO.Application.Services
     private readonly IBus _bus;
     private readonly IMapper _mapper;
     private readonly IEventoRepository _eventoRepository;
+    private readonly IUser _user;
 
-    public EventoAppService(IBus bus, IMapper mapper, IEventoRepository eventoRepository)
+    public EventoAppService(IBus bus,
+                            IMapper mapper,
+                            IEventoRepository eventoRepository,
+                            IUser user)
     {
       _bus = bus;
       _mapper = mapper;
       _eventoRepository = eventoRepository;
+      _user = user;
     }
 
     public void Registrar(EventoViewModel eventoViewModel)
@@ -57,20 +63,21 @@ namespace Eventos.IO.Application.Services
       _bus.SendCommand(new ExcluirEventoCommand(id));
     }
 
-
     public void AdicionarEndereco(EnderecoViewModel enderecoViewModel)
     {
-      throw new NotImplementedException();
+      var enderecoCommand = _mapper.Map<IncluirEnderecoEventoCommand>(enderecoViewModel);
+      _bus.SendCommand(enderecoCommand);
     }
 
     public void AtualizarEndereco(EnderecoViewModel enderecoViewModel)
     {
-      throw new NotImplementedException();
+      var enderecoCommand = _mapper.Map<AtualizarEnderecoEventoCommand>(enderecoViewModel);
+      _bus.SendCommand(enderecoCommand);
     }
 
     public EnderecoViewModel ObterEnderecoPorId(Guid id)
     {
-      throw new NotImplementedException();
+      return _mapper.Map<EnderecoViewModel>(_eventoRepository.ObterEnderecoPorId(id));
     }
 
     public void Dispose()

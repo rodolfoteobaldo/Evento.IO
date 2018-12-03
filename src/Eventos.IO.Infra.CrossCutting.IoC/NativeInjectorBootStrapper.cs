@@ -37,18 +37,20 @@ namespace Eventos.IO.Infra.CrossCutting.IoC
       services.AddScoped<IOrganizadorAppService, OrganizadorAppService>();
 
       //Domain - Commands
-      services.AddSingleton<IHandler<RegistrarEventoCommand>, EventoCommandHandler>();
-      services.AddSingleton<IHandler<AtualizarEventoCommand>, EventoCommandHandler>();
-      services.AddSingleton<IHandler<ExcluirEventoCommand>, EventoCommandHandler>();
-
-      services.AddSingleton<IHandler<RegistrarOrganizadorCommand>, OrganizadorCommandHandler>();
+      services.AddScoped<IHandler<RegistrarEventoCommand>, EventoCommandHandler>();
+      services.AddScoped<IHandler<AtualizarEventoCommand>, EventoCommandHandler>();
+      services.AddScoped<IHandler<ExcluirEventoCommand>, EventoCommandHandler>();
+      services.AddScoped<IHandler<AtualizarEnderecoEventoCommand>, EventoCommandHandler>();
+      services.AddScoped<IHandler<IncluirEnderecoEventoCommand>, EventoCommandHandler>();
+      services.AddScoped<IHandler<RegistrarOrganizadorCommand>, OrganizadorCommandHandler>();
 
       //Domain - Eventos
       services.AddScoped<IDomainNotificationHandler<DomainNotification>, DomainNotificationHandler>();
-      services.AddSingleton<IHandler<EventoRegistradoEvent>, EventoEventHandler>();
-      services.AddSingleton<IHandler<EventoAtualizadoEvent>, EventoEventHandler>();
-      services.AddSingleton<IHandler<EventoExcluidoEvent>, EventoEventHandler>();
-
+      services.AddScoped<IHandler<EventoRegistradoEvent>, EventoEventHandler>();
+      services.AddScoped<IHandler<EventoAtualizadoEvent>, EventoEventHandler>();
+      services.AddScoped<IHandler<EventoExcluidoEvent>, EventoEventHandler>();
+      services.AddScoped<IHandler<EnderecoEventoAtualizadoEvent>, EventoEventHandler>();
+      services.AddScoped<IHandler<EnderecoEventoAdicionadoEvent>, EventoEventHandler>();
       services.AddSingleton<IHandler<OrganizadorRegistradoEvent>, OrganizadorEventHandler>();
 
       //Infra - Data
@@ -58,7 +60,7 @@ namespace Eventos.IO.Infra.CrossCutting.IoC
       services.AddScoped<EventosContext>();
 
       //Infra - Bus
-      services.AddSingleton<IBus, InMemoryBus>();
+      services.AddScoped<IBus, InMemoryBus>();
 
       //Infra - Identity
       services.AddTransient<IEmailSender, AuthMessageSender>();
